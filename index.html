@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Biodata Anime - Ahmad Syamsa Nafi</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.150.1/build/three.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #121524, #1e1e40);
+      color: #fff;
+      overflow-x: hidden;
+    }
+    header {
+      text-align: center;
+      padding: 5rem 1rem 2rem;
+      position: relative;
+    }
+    header img.profile {
+      width: 130px;
+      height: 130px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid #fff;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+      margin-bottom: 1rem;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: .5rem;
+    }
+    header p {
+      font-size: 1.1rem;
+    }
+    nav {
+      position: sticky;
+      top: 0;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(5px);
+      z-index: 1000;
+    }
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0.5rem 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    nav ul li a:hover {
+      color: #00e0ff;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem;
+    }
+    .card {
+      background: rgba(255,255,255,0.05);
+      padding: 1.2rem;
+      margin-bottom: 1rem;
+      border-radius: 16px;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .card:hover {
+      transform: scale(1.03);
+      box-shadow: 0 8px 25px rgba(255,255,255,0.1);
+    }
+    .timeline {
+      display: flex;
+      overflow-x: auto;
+      padding: 1rem 0;
+    }
+    .timeline-item {
+      flex: 0 0 auto;
+      width: 250px;
+      background: rgba(255,255,255,0.05);
+      margin: 0 .5rem;
+      padding: 1rem;
+      border-radius: 12px;
+      text-align: center;
+    }
+    .badge {
+      display: inline-block;
+      background: gold;
+      color: #000;
+      padding: 0.3rem 0.6rem;
+      border-radius: 12px;
+      font-weight: bold;
+      margin: 0.2rem;
+    }
+    canvas#particleCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    .progress {
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+      height: 20px;
+      overflow: hidden;
+      margin: .5rem 0;
+    }
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #00e0ff, #7a5fff);
+      width: 0;
+    }
+    [data-tooltip] {
+      position: relative;
+      cursor: pointer;
+    }
+    [data-tooltip]:hover::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 120%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.7);
+      padding: .3rem .5rem;
+      border-radius: 4px;
+      font-size: .8rem;
+      white-space: nowrap;
+    }
+    #statChart, #pieChart {
+      max-width: 420px;
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      padding: 10px;
+      border-radius: 12px;
+      margin: 10px auto;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="particleCanvas"></canvas>
+  <header>
+    <img src="queen.png" alt="Foto Profil" class="profile">
+    <h1>Ahmad Syamsa Nafi</h1>
+    <p>"Hidup seperti lary"</p>
+  </header>
+  <nav>
+    <ul>
+      <li><a href="#biodata">Biodata</a></li>
+      <li><a href="#pendidikan">Pendidikan</a></li>
+      <li><a href="#keterampilan">Keterampilan</a></li>
+      <li><a href="#pengalaman">Pengalaman</a></li>
+      <li><a href="#statistik">Statistik</a></li>
+      <li><a href="#hobi">Hobi</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <div class="card" id="biodata">
+      <h2>Biodata Diri</h2>
+      <p>Nama: Ahmad Syamsa Nafi</p>
+      <p>Tempat, tanggal lahir: Kuningan, 25 Desember 2008</p>
+      <p>Alamat: Desa Kampil, Kec. Wiradesa, Kab. Pekalongan</p>
+      <p>Jenis Kelamin: Laki-laki</p>
+      <p>Agama: Islam</p>
+      <p>Kewarganegaraan: Indonesia</p>
+      <p>Status: Pelajar</p>
+      <p>alamat email: syamsa54xxxx</p>
+      <p>no hp: 0858xxxxxxx</p>
+      <p>Cita-cita: Menjadi orang yang sukses</p>
+      <p>Harapan masa depan: Membahagiakan kedua orang tua dan berguna bagi masyarakat</p>
+    </div>
+
+    <div class="card" id="pendidikan">
+      <h2>Pendidikan</h2>
+      <ul>
+        <li>MIS Kauman Wiradesa (2015-2021)</li>
+        <li>MTs 45 Wiradesa (2021-2024)</li>
+        <li>SMK Ma'arif NU Tirto (2024)</li>
+      </ul>
+    </div>
+
+    <div class="card" id="keterampilan">
+      <h2>Keterampilan</h2>
+      <p>Desain grafis dengan Canva</p>
+    </div>
+
+    <div class="card" id="pengalaman">
+      <h2>Riwayat Hidup / Pengalaman</h2>
+      <div class="timeline">
+        <div class="timeline-item">Menjadi panitia lomba agustusan</div>
+        <div class="timeline-item">Pengalaman lainnya</div>
+      </div>
+    </div>
+
+    <!-- Statistik Kegiatan dengan bar + pie chart -->
+    <div class="card" id="statistik">
+      <h2>Statistik Kegiatan</h2>
+      <canvas id="statChart" height="200"></canvas>
+      <canvas id="pieChart" height="200"></canvas>
+      <div>
+        <p>Level Belajar</p>
+        <div class="progress"><div class="progress-bar" id="expBar"></div></div>
+      </div>
+    </div>
+
+    <div class="card" id="hobi">
+      <h2>Hobi</h2>
+      <ul>
+        <li>Bermain bola</li>
+        <li>Menulis</li>
+        <li>Membaca komik</li>
+        <li>Mendengar Musik</li>
+        <li>Nonton Anime</li>
+      </ul>
+    </div>
+  </div>
+  <footer class="container">
+    <p>"Kalau kau memang benar-benar memikirkan keluargamu, maka kau tidak boleh hidup dengan memalukan." - Akainu</p>
+  </footer>
+
+  <script>
+    // GSAP transitions
+    window.addEventListener('load', () => {
+      gsap.from('header', {duration: 1, y: -50, opacity: 0});
+      gsap.from('.card', {duration: 0.8, y: 30, opacity: 0, stagger: 0.2});
+      gsap.from('nav', {duration: 1, y: -60, opacity: 0});
+    });
+
+    // Particle system dengan Three.js
+    let scene = new THREE.Scene();
+    let camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+    let renderer = new THREE.WebGLRenderer({canvas: document.getElementById('particleCanvas'), alpha: true});
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    let particles = new THREE.BufferGeometry();
+    const particleCount = 200;
+    const positions = [];
+    for (let i = 0; i < particleCount; i++) {
+      positions.push((Math.random()-0.5)*200);
+      positions.push(Math.random()*200);
+      positions.push((Math.random()-0.5)*200);
+    }
+    particles.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+    let material = new THREE.PointsMaterial({color: 0xffffff, size: 1.5});
+    let points = new THREE.Points(particles, material);
+    scene.add(points);
+    camera.position.z = 50;
+    function animateParticles(){
+      requestAnimationFrame(animateParticles);
+      points.rotation.y += 0.0005;
+      renderer.render(scene, camera);
+    }
+    animateParticles();
+    window.addEventListener('resize', ()=>{
+      camera.aspect = window.innerWidth/window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // Data kegiatan
+    const kegiatanLabels = ['Tidur', 'Sekolah', 'Belajar mandiri', 'Hobi', 'Sosialisasi', 'Lain-lain'];
+    const kegiatanData = [8, 6, 2, 3, 1, 4];
+    const kegiatanColors = ['#ffb6c1','#add8e6','#90ee90','#dda0dd','#f0e68c','#ff7f50'];
+
+    // Bar Chart
+    const ctxBar = document.getElementById('statChart').getContext('2d');
+    new Chart(ctxBar, {
+      type: 'bar',
+      data: {
+        labels: kegiatanLabels,
+        datasets: [{
+          label: 'Jam/hari',
+          data: kegiatanData,
+          backgroundColor: kegiatanColors
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
+      }
+    });
+
+    // Pie Chart
+    const ctxPie = document.getElementById('pieChart').getContext('2d');
+    new Chart(ctxPie, {
+      type: 'pie',
+      data: {
+        labels: kegiatanLabels,
+        datasets: [{
+          data: kegiatanData,
+          backgroundColor: kegiatanColors,
+          hoverOffset: 12,
+          borderColor: '#222',
+          borderWidth: 2
+        }]
+      },
+      options: {
+        plugins: {
+          legend: { position: 'bottom' },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                const value = context.parsed;
+                const total = context.chart.data.datasets[0].data.reduce((a,b)=>a+b,0);
+                const percent = ((value/total)*100).toFixed(1);
+                return `${context.label}: ${value} jam (${percent}%)`;
+              }
+            }
+          }
+        }
+      }
+    });
+
+    // Progress bar
+    const expBar = document.getElementById('expBar');
+    setTimeout(()=>{ expBar.style.width = '80%'; }, 600);
+  </script>
+</body>
+</html>
+
+
+
+
